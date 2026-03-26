@@ -1,1 +1,1 @@
-Portfólio em site desenvolvido em html, css e js
+Portfólio em site desenvolvido em html, tailwind e js
