@@ -150,7 +150,7 @@ export const Skills: React.FC = () => {
     <section id="skills" className="py-20 border-b border-slate-200 dark:border-slate-800/60 bg-slate-100/50 dark:bg-slate-950/60 transition-colors">
       <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Section Header */}
-        <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-12">
+        <div className="flex flex-col items-start gap-6 mb-12">
           <div>
             <div className="flex items-center gap-2 text-xs font-semibold uppercase tracking-wider text-rose-600 dark:text-rose-500 mb-2">
               <span>Stack Tecnológica &amp; Habilidades</span>
@@ -166,7 +166,7 @@ export const Skills: React.FC = () => {
           </div>
 
           {/* Filter Pills */}
-          <div className="w-full md:w-auto min-w-0 max-w-full md:self-end overflow-x-auto scrollbar-none py-1">
+          <div className="w-full min-w-0 max-w-full overflow-x-auto overscroll-x-contain scroll-smooth py-1 [scrollbar-width:thin]">
             <div className="inline-flex items-center gap-1.5 p-1 rounded-xl bg-slate-200 dark:bg-slate-900 border border-slate-300 dark:border-slate-800 min-w-max">
               {[
                 { id: 'todos', label: 'Todas as Skills' },
@@ -177,7 +177,15 @@ export const Skills: React.FC = () => {
                 <button
                   key={tab.id}
                   type="button"
-                  onClick={() => setSelectedFilter(tab.id as any)}
+                  aria-pressed={selectedFilter === tab.id}
+                  onClick={(event) => {
+                    setSelectedFilter(tab.id as typeof selectedFilter);
+                    event.currentTarget.scrollIntoView({
+                      behavior: window.matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth',
+                      block: 'nearest',
+                      inline: 'nearest',
+                    });
+                  }}
                   className={`px-3 py-1.5 text-xs font-medium rounded-lg transition-colors whitespace-nowrap shrink-0 ${
                     selectedFilter === tab.id
                       ? 'bg-white dark:bg-rose-500/20 text-rose-600 dark:text-rose-400 shadow-sm dark:border dark:border-rose-500/40 font-semibold'
