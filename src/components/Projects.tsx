@@ -256,7 +256,7 @@ export const Projects: React.FC = () => {
         {/* Filter Bar & Search */}
         <div className="flex flex-col md:flex-row items-stretch md:items-center justify-between gap-4 mb-8 p-2 rounded-xl bg-slate-100 dark:bg-slate-900/60 border border-slate-200 dark:border-slate-800">
           {/* Segmented Filter Buttons */}
-          <div className="flex items-center gap-1 overflow-x-auto pb-2 md:pb-0 scrollbar-none">
+          <div className="flex items-center gap-1 overflow-x-auto pb-2 md:pb-0 scrollbar-none min-w-0 max-w-full">
             {categories.map((cat) => (
               <button
                 key={cat.id}
