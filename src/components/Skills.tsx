@@ -166,26 +166,28 @@ export const Skills: React.FC = () => {
           </div>
 
           {/* Filter Pills */}
-          <div className="flex items-center gap-1.5 p-1 rounded-xl bg-slate-200 dark:bg-slate-900 border border-slate-300 dark:border-slate-800 self-start md:self-end overflow-x-auto scrollbar-none">
-            {[
-              { id: 'todos', label: 'Todas as Skills' },
-              { id: 'dados', label: 'Engenharia de Dados' },
-              { id: 'infra', label: 'Infra & DevOps' },
-              { id: 'dev', label: 'Desenvolvimento & IA' },
-            ].map((tab) => (
-              <button
-                key={tab.id}
-                type="button"
-                onClick={() => setSelectedFilter(tab.id as any)}
-                className={`px-3 py-1.5 text-xs font-medium rounded-lg transition-colors whitespace-nowrap ${
-                  selectedFilter === tab.id
-                    ? 'bg-white dark:bg-rose-500/20 text-rose-600 dark:text-rose-400 shadow-sm dark:border dark:border-rose-500/40 font-semibold'
-                    : 'text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white'
-                }`}
-              >
-                {tab.label}
-              </button>
-            ))}
+          <div className="w-full md:w-auto min-w-0 max-w-full md:self-end overflow-x-auto scrollbar-none py-1">
+            <div className="inline-flex items-center gap-1.5 p-1 rounded-xl bg-slate-200 dark:bg-slate-900 border border-slate-300 dark:border-slate-800 min-w-max">
+              {[
+                { id: 'todos', label: 'Todas as Skills' },
+                { id: 'dados', label: 'Engenharia de Dados' },
+                { id: 'infra', label: 'Infra & DevOps' },
+                { id: 'dev', label: 'Desenvolvimento & IA' },
+              ].map((tab) => (
+                <button
+                  key={tab.id}
+                  type="button"
+                  onClick={() => setSelectedFilter(tab.id as any)}
+                  className={`px-3 py-1.5 text-xs font-medium rounded-lg transition-colors whitespace-nowrap shrink-0 ${
+                    selectedFilter === tab.id
+                      ? 'bg-white dark:bg-rose-500/20 text-rose-600 dark:text-rose-400 shadow-sm dark:border dark:border-rose-500/40 font-semibold'
+                      : 'text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white'
+                  }`}
+                >
+                  {tab.label}
+                </button>
+              ))}
+            </div>
           </div>
         </div>
 

@@ -2,6 +2,16 @@
 
 @custom-variant dark (&:where(.dark, .dark *));
 
+/* Hide scrollbar for Chrome, Safari, Opera, Firefox, Edge */
+.scrollbar-none::-webkit-scrollbar {
+  display: none;
+}
+
+.scrollbar-none {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
 @layer base {
   html {
     scroll-behavior: smooth;
@@ -29,3 +39,4 @@
     font-variant-numeric: tabular-nums;
   }
 }
+
