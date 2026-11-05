@@ -165,35 +165,57 @@ export const Skills: React.FC = () => {
             </p>
           </div>
 
-          {/* Filter Pills */}
-          <div className="w-full min-w-0 max-w-full overflow-x-auto overscroll-x-contain scroll-smooth py-1 [scrollbar-width:thin]">
-            <div className="inline-flex items-center gap-1.5 p-1 rounded-xl bg-slate-200 dark:bg-slate-900 border border-slate-300 dark:border-slate-800 min-w-max">
-              {[
-                { id: 'todos', label: 'Todas as Skills' },
-                { id: 'dados', label: 'Engenharia de Dados' },
-                { id: 'infra', label: 'Infra & DevOps' },
-                { id: 'dev', label: 'Desenvolvimento & IA' },
-              ].map((tab) => (
-                <button
-                  key={tab.id}
-                  type="button"
-                  aria-pressed={selectedFilter === tab.id}
-                  onClick={(event) => {
-                    setSelectedFilter(tab.id as typeof selectedFilter);
-                    event.currentTarget.scrollIntoView({
-                      behavior: window.matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth',
-                      block: 'nearest',
-                      inline: 'nearest',
-                    });
-                  }}
-                  className={`px-3 py-1.5 text-xs font-medium rounded-lg transition-colors whitespace-nowrap shrink-0 ${
-                    selectedFilter === tab.id
-                      ? 'bg-white dark:bg-rose-500/20 text-rose-600 dark:text-rose-400 shadow-sm dark:border dark:border-rose-500/40 font-semibold'
-                      : 'text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white'
-                  }`}
+          {/* Continuously moving category filters */}
+          <style>{`
+            @keyframes skills-marquee {
+              from { transform: translateX(0); }
+              to { transform: translateX(-50%); }
+            }
+            .skills-marquee-track { animation: skills-marquee 24s linear infinite; }
+            .skills-marquee:hover .skills-marquee-track,
+            .skills-marquee:focus-within .skills-marquee-track {
+              animation-play-state: paused;
+            }
+            @media (prefers-reduced-motion: reduce) {
+              .skills-marquee { overflow-x: auto; }
+              .skills-marquee-track { animation: none; }
+              .skills-marquee-copy { display: none; }
+            }
+          `}</style>
+          <div
+            className="skills-marquee w-full min-w-0 overflow-hidden rounded-xl bg-slate-200 dark:bg-slate-900 border border-slate-300 dark:border-slate-800 py-1"
+            role="group"
+            aria-label="Filtrar habilidades por categoria"
+          >
+            <div className="skills-marquee-track flex w-max">
+              {[0, 1].map((copy) => (
+                <div
+                  key={copy}
+                  className={`flex shrink-0 items-center justify-around gap-3 px-3 min-w-[max(100vw,700px)] ${copy === 1 ? 'skills-marquee-copy' : ''}`}
                 >
-                  {tab.label}
-                </button>
+                  {[
+                    { id: 'todos', label: 'Todas as Skills' },
+                    { id: 'dados', label: 'Engenharia de Dados' },
+                    { id: 'infra', label: 'Infra & DevOps' },
+                    { id: 'dev', label: 'Desenvolvimento & IA' },
+                  ].map((tab) => (
+                    <button
+                      key={tab.id}
+                      type="button"
+                      tabIndex={copy === 1 ? -1 : 0}
+                      aria-hidden={copy === 1 ? true : undefined}
+                      aria-pressed={selectedFilter === tab.id}
+                      onClick={() => setSelectedFilter(tab.id as typeof selectedFilter)}
+                      className={`px-3 py-1.5 text-xs font-medium rounded-lg transition-colors whitespace-nowrap shrink-0 border focus-visible:outline-2 focus-visible:outline-rose-500 ${ 
+                        selectedFilter === tab.id
+                          ? 'bg-white dark:bg-rose-500/20 text-rose-600 dark:text-rose-400 shadow-sm border-transparent dark:border-rose-500/40 font-semibold'
+                          : 'border-transparent text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white'
+                      }`}
+                    >
+                      {tab.label}
+                    </button>
+                  ))}
+                </div>
               ))}
             </div>
           </div>
